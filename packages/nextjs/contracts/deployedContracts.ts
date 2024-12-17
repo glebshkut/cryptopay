@@ -4,6 +4,200 @@
  */
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  31337: {
+    MasterMerchant: {
+      address: "0xBc6509Cb3C19Aa9877a92E94fbaFc844Ed478E4b",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialOwner",
+              type: "address",
+            },
+            {
+              internalType: "int256",
+              name: "initialWalletsAmount",
+              type: "int256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "FundsReceived",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "message",
+              type: "string",
+            },
+          ],
+          name: "WalletCreationFailed",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "createWallet",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "isCreatingNewWallets",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "toggleCreatingNewWallets",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "wallets",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      bytecode:
+        "0x60806040526002805460ff1916600117905534801561001d57600080fd5b50604051610a20380380610a2083398101604081905261003c916101f6565b816001600160a01b03811661006b57604051631e4fbdf760e01b81526000600482015260240160405180910390fd5b61007481610098565b5060005b81811215610090576100886100e8565b600101610078565b505050610230565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60025460ff1661015b577ff3ba6a32224bd1840dbae5a49fc0ad8a7591033967326be8175700bd4cd904e1604051610151906020808252601b908201527f57616c6c6574206372656174696f6e2069732064697361626c65640000000000604082015260600190565b60405180910390a1565b60003060405161016a906101e9565b6001600160a01b039091168152602001604051809103906000f080158015610196573d6000803e3d6000fd5b506001805480820182556000919091527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60180546001600160a01b0319166001600160a01b039290921691909117905550565b61019d8061088383390190565b6000806040838503121561020957600080fd5b82516001600160a01b038116811461022057600080fd5b6020939093015192949293505050565b6106448061023f6000396000f3fe60806040526004361061007f5760003560e01c8063715018a61161004e578063715018a6146101335780637ad71f72146101485780638da5cb5b14610180578063f2fde38b1461019e57600080fd5b806311ebbf24146100c35780633ccfd60b146100da5780635ca66b59146100ef5780636a09d4b21461010457600080fd5b366100be57604080513381523460208201527f8e47b87b0ef542cdfa1659c551d88bad38aa7f452d2bbb349ab7530dfec8be8f910160405180910390a1005b600080fd5b3480156100cf57600080fd5b506100d86101be565b005b3480156100e657600080fd5b506100d86102bf565b3480156100fb57600080fd5b506100d8610304565b34801561011057600080fd5b5060025461011e9060ff1681565b60405190151581526020015b60405180910390f35b34801561013f57600080fd5b506100d8610320565b34801561015457600080fd5b50610168610163366004610428565b610334565b6040516001600160a01b03909116815260200161012a565b34801561018c57600080fd5b506000546001600160a01b0316610168565b3480156101aa57600080fd5b506100d86101b9366004610441565b61035e565b60025460ff16610231577ff3ba6a32224bd1840dbae5a49fc0ad8a7591033967326be8175700bd4cd904e1604051610227906020808252601b908201527f57616c6c6574206372656174696f6e2069732064697361626c65640000000000604082015260600190565b60405180910390a1565b6000306040516102409061041b565b6001600160a01b039091168152602001604051809103906000f08015801561026c573d6000803e3d6000fd5b506001805480820182556000919091527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60180546001600160a01b0319166001600160a01b039290921691909117905550565b6102c761039e565b600080546040516001600160a01b03909116914780156108fc02929091818181858888f19350505050158015610301573d6000803e3d6000fd5b50565b61030c61039e565b6002805460ff19811660ff90911615179055565b61032861039e565b61033260006103cb565b565b6001818154811061034457600080fd5b6000918252602090912001546001600160a01b0316905081565b61036661039e565b6001600160a01b03811661039557604051631e4fbdf760e01b8152600060048201526024015b60405180910390fd5b610301816103cb565b6000546001600160a01b031633146103325760405163118cdaa760e01b815233600482015260240161038c565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b61019d8061047283390190565b60006020828403121561043a57600080fd5b5035919050565b60006020828403121561045357600080fd5b81356001600160a01b038116811461046a57600080fd5b939250505056fe608060405234801561001057600080fd5b5060405161019d38038061019d83398101604081905261002f91610054565b600080546001600160a01b0319166001600160a01b0392909216919091179055610084565b60006020828403121561006657600080fd5b81516001600160a01b038116811461007d57600080fd5b9392505050565b61010a806100936000396000f3fe60806040526004361060205760003560e01c806311ebbf2414606b57600080fd5b36606657600080546040516001600160a01b03909116913480156108fc02929091818181858888f19350505050158015605d573d6000803e3d6000fd5b5060646076565b005b600080fd5b348015605d57600080fd5b600080546040805163047aefc960e21b815290516001600160a01b039092169283926311ebbf2492600480820193929182900301818387803b15801560ba57600080fd5b505af115801560cd573d6000803e3d6000fd5b505050505056fea264697066735822122012fb1518a4b59a17b58f159776f6fd2c20fce58b7d3318f243e9f77fd7dba0b764736f6c63430008160033a2646970667358221220a071ebfa6e4e0d6b49d9a3985f2eade14f86f1226211037197b8000f5d2bf72b64736f6c63430008160033608060405234801561001057600080fd5b5060405161019d38038061019d83398101604081905261002f91610054565b600080546001600160a01b0319166001600160a01b0392909216919091179055610084565b60006020828403121561006657600080fd5b81516001600160a01b038116811461007d57600080fd5b9392505050565b61010a806100936000396000f3fe60806040526004361060205760003560e01c806311ebbf2414606b57600080fd5b36606657600080546040516001600160a01b03909116913480156108fc02929091818181858888f19350505050158015605d573d6000803e3d6000fd5b5060646076565b005b600080fd5b348015605d57600080fd5b600080546040805163047aefc960e21b815290516001600160a01b039092169283926311ebbf2492600480820193929182900301818387803b15801560ba57600080fd5b505af115801560cd573d6000803e3d6000fd5b505050505056fea264697066735822122012fb1518a4b59a17b58f159776f6fd2c20fce58b7d3318f243e9f77fd7dba0b764736f6c63430008160033",
+      inheritedFunctions: {
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+      },
+    },
+  },
+} as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;

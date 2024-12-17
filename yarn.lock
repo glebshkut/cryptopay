@@ -2151,6 +2151,7 @@ __metadata:
     ts-node: ~10.9.1
     typechain: ~8.3.2
     typescript: <5.6.0
+    viem: ^2.21.55
   languageName: unknown
   linkType: soft
 
@@ -13861,7 +13862,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.1.1":
+"viem@npm:^2.1.1, viem@npm:^2.21.55":
   version: 2.21.55
   resolution: "viem@npm:2.21.55"
   dependencies:
