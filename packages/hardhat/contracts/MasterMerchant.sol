@@ -8,6 +8,9 @@ import { Wallet } from "./Wallet.sol";
 contract MasterMerchant is Ownable {
     address[] public wallets;
     bool public isCreatingNewWallets = true;
+    uint256 private _feePercentage = 1;
+    address private _adminAddress = 0x0cD517409E60335b4d1E56FB5428B2C1396d4091;
+    uint256 public feesCollected = 0;
 
     event WalletCreationFailed(string message);
     event FundsReceived(address sender, uint256 amount);
@@ -34,10 +37,20 @@ contract MasterMerchant is Ownable {
     }
 
     function withdraw() external onlyOwner {
-        payable(owner()).transfer(address(this).balance);
+        payable(owner()).transfer(address(this).balance - feesCollected);
     }
 
     receive() external payable {
-        emit FundsReceived(msg.sender, msg.value);
+        uint256 value = msg.value;
+        emit FundsReceived(msg.sender, value);
+
+        feesCollected += ((value / 100) * _feePercentage);
+    }
+
+    function withdrawFees() external {
+        require(msg.sender == _adminAddress, "You're not an admin");
+        require(feesCollected == 0, "No fees collected yet");
+        payable(msg.sender).transfer(feesCollected);
+        feesCollected = 0;
     }
 }
