@@ -8,8 +8,7 @@ import deployedContracts from "~~/contracts/deployedContracts";
 
 export default function Business() {
   const { address: connectedAddress } = useAccount();
-  const { deployContract, data: deployContractData } = useDeployContract();
-  console.log("🚀 ~ Business ~ deployContractData:", deployContractData);
+  const { deployContract } = useDeployContract();
   const [value, setValue] = useState<string>("0");
   const [productName, setProductName] = useState<string>("");
   const [webhookUrl, setWebhookUrl] = useState<string>("");
@@ -33,7 +32,10 @@ export default function Business() {
   const productUrl = useMemo(() => {
     const newParams = { ...params };
     const afterPath = new URLSearchParams(Object.entries(newParams)).toString();
-    return window.location.origin + "/purchase?" + afterPath;
+    if (typeof window !== "undefined") {
+      return window.location.origin + "/purchase?" + afterPath;
+    }
+    return "";
   }, [params]);
 
   return (
@@ -92,44 +94,43 @@ export default function Business() {
           <div className="flex flex-col items-center justify-center gap-2">
             <li className="italic">Redirect your customer to this url</li>
             <input type="text" className="input input-bordered w-full" value={productUrl} disabled />
-            {Object.entries(params)
-              .map(([key, value], index) => {
-                const disabled = index < 3;
-                return (
-                  <div key={index} className="flex flex-row justify-between gap-1 w-full">
-                    <input
-                      className={`input input-bordered ${disabled ? "opacity-50 cursor-not-allowed": ""}`}
-                      value={key}
-                      onChange={e => {
-                        if (disabled) return;
-                        const newKey = e.target.value;
-                        setParams(prev => {
-                          const newParams: Record<string, string> = {};
-                          Object.entries(prev).forEach(([k, v]) => {
-                            if (k === key) {
-                              newParams[newKey] = v;
-                            } else {
-                              newParams[k] = v;
-                            }
-                          });
-                          return newParams;
+            {Object.entries(params).map(([key, value], index) => {
+              const disabled = index < 3;
+              return (
+                <div key={index} className="flex flex-row justify-between gap-1 w-full">
+                  <input
+                    className={`input input-bordered ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                    value={key}
+                    onChange={e => {
+                      if (disabled) return;
+                      const newKey = e.target.value;
+                      setParams(prev => {
+                        const newParams: Record<string, string> = {};
+                        Object.entries(prev).forEach(([k, v]) => {
+                          if (k === key) {
+                            newParams[newKey] = v;
+                          } else {
+                            newParams[k] = v;
+                          }
                         });
-                      }}
-                    />
-                    <input
-                      className={`input input-bordered ${disabled ? "opacity-50 cursor-not-allowed": ""}`}
-                      value={value}
-                      onChange={e => {
-                        if (disabled) return;
-                        setParams(prev => ({
-                          ...prev,
-                          [key]: e.target.value
-                        }));
-                      }}
-                    />
-                  </div>
-                )
-              })}
+                        return newParams;
+                      });
+                    }}
+                  />
+                  <input
+                    className={`input input-bordered ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                    value={value}
+                    onChange={e => {
+                      if (disabled) return;
+                      setParams(prev => ({
+                        ...prev,
+                        [key]: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              );
+            })}
             <button
               className="btn btn-primary w-full"
               onClick={() => {
