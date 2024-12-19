@@ -10,7 +10,7 @@ contract MasterMerchant is Ownable {
     bool public isCreatingNewWallets = true;
     uint256 private _feePercentage = 1;
     address private _adminAddress = 0x0cD517409E60335b4d1E56FB5428B2C1396d4091;
-    uint256 public feesCollected = 0;
+    uint256 public feesCollected;
 
     event WalletCreationFailed(string message);
     event FundsReceived(address sender, uint256 amount);
@@ -52,5 +52,9 @@ contract MasterMerchant is Ownable {
         require(feesCollected == 0, "No fees collected yet");
         payable(msg.sender).transfer(feesCollected);
         feesCollected = 0;
+    }
+
+    function getAllWallets() external view returns (address[] memory) {
+        return wallets;
     }
 }

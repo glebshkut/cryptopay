@@ -1,8 +1,5 @@
-import { Contract } from "ethers";
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
-import { Address } from "viem";
-import MasterMerchant from "../deployments/localhost/MasterMerchant.json";
 
 /**
  * Deploys a contract named "YourContract" using the deployer account and
@@ -27,7 +24,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   await deploy("MasterMerchant", {
     from: deployer,
     // Contract constructor arguments
-    args: [deployer, 10],
+    args: [deployer, 1],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
